@@ -7,12 +7,12 @@ namespace Capstone.Views
     /// <summary>
     /// The top-level menu in our Market Application
     /// </summary>
-    public class MainMenu : CLIMenu
+    public class VendingMachineMainMenu : CLIMenu
     {
         /// <summary>
         /// Constructor adds items to the top-level menu
         /// </summary>
-        public MainMenu() : base()
+        public VendingMachineMainMenu() : base()
         {
             this.Title = "*** Main Menu ***";
             this.menuOptions.Add("1", "Option One");
