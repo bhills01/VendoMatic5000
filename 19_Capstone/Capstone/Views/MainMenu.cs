@@ -15,10 +15,9 @@ namespace Capstone.Views
         public MainMenu() : base()
         {
             this.Title = "*** Main Menu ***";
-            this.menuOptions.Add("1", "Option One");
-            this.menuOptions.Add("2", "Add two numbers");
-            this.menuOptions.Add("3", "Display a sub-menu");
-            this.menuOptions.Add("Q", "Quit");
+            this.menuOptions.Add("1", "Display Vending Machine Items");
+            this.menuOptions.Add("2", "Purchase");
+            this.menuOptions.Add("E", "Exit");
         }
 
         /// <summary>
@@ -32,18 +31,16 @@ namespace Capstone.Views
             switch (choice)
             {
                 case "1":
-                    // This is just a sample, does nothing
+                    ItemsMenu itemsMenu = new ItemsMenu();
+                    itemsMenu.Run();
                     return true;
                 case "2":
-                    // Get some input form the user, and then do something
-                    int someNumber = GetInteger("Please enter a whole number:");
-                    int anotherNumber = GetInteger("Please enter another whole number:");
-                    Console.WriteLine($"{someNumber} + {anotherNumber} = {someNumber + anotherNumber}.");
-                    Pause("");
                     return true;
-                case "3":
+                case "E":
                     SubMenu sm = new SubMenu();
                     sm.Run();
+                    break;
+                case "4":
                     break;
             }
             return true;

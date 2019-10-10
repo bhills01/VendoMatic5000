@@ -39,7 +39,7 @@ namespace Capstone.Views
         /// <summary>
         /// Run starts the menu loop
         /// </summary>
-        public void Run()
+        virtual public void Run()
         {
             while (true)
             {
@@ -49,14 +49,14 @@ namespace Capstone.Views
                 Console.WriteLine("\r\nPlease make a selection:");
                 foreach (KeyValuePair<string, string> menuItem in menuOptions)
                 {
-                    Console.WriteLine($"{menuItem.Key} - {menuItem.Value}");
+                    Console.WriteLine($"({menuItem.Key}) - {menuItem.Value}");
                 }
 
                 string choice = GetString("Selection:").ToUpper();
 
                 if (menuOptions.ContainsKey(choice))
                 {
-                    if (choice == "Q")
+                    if (choice == "E")
                     {
                         break;
                     }

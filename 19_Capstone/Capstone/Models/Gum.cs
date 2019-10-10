@@ -6,5 +6,15 @@ namespace Capstone.Models
 {
     class Gum : Item
     {
+        //Contructor
+
     }
+
+    // Properties
+
+
+
+    //Methods
+
+
 }

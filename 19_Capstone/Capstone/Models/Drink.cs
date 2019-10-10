@@ -6,5 +6,15 @@ namespace Capstone.Models
 {
     class Drink : Item
     {
+        //Contructor
+
     }
+
+    // Properties
+
+
+
+    //Methods
+
+
 }

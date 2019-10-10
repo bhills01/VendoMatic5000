@@ -9,7 +9,7 @@ namespace Capstone
         {
             MainMenu mainMenu = new MainMenu();
             mainMenu.Run();
-            Console.ReadLine();
+            
         }
     }
 }

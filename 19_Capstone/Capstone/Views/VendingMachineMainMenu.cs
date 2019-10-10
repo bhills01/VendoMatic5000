@@ -19,7 +19,10 @@ namespace Capstone.Views
             this.menuOptions.Add("2", "Add two numbers");
             this.menuOptions.Add("3", "Display a sub-menu");
             this.menuOptions.Add("Q", "Quit");
+
         }
+
+        
 
         /// <summary>
         /// The override of ExecuteSelection handles whatever selection was made by the user.
