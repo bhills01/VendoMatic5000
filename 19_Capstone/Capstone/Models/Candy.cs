@@ -6,12 +6,12 @@ namespace Capstone.Models
 {
     public class Candy : Item
     {
-        public Candy(string candyName, decimal candyPrice, string candyMessage): base(candyName, candyPrice, candyMessage)
+        public Candy(string candyName, decimal candyPrice, string candyMessage): base(candyName, candyPrice)
         {
             //Contructor
             CandyName = candyName;
             CandyPrice = candyPrice;//Test Price hard coded. Will replace with StreamReader eventually
-            candyMessage = "**TestMessage***";
+            Message = "Crunch, Crunch, Yum!";
         }
 
         // Properties

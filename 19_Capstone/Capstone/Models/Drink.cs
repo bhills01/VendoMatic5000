@@ -4,9 +4,13 @@ using System.Text;
 
 namespace Capstone.Models
 {
-    class Drink : Item
+    public class Drink : Item
     {
-        //Contructor
+        public Drink(string drinkName, decimal drinkPrice, string drinkMessage) : base(drinkName, drinkPrice)
+        {
+            //Contructor
+        }
+
 
     }
 

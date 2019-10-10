@@ -6,12 +6,10 @@ namespace Capstone.Models
 {
     abstract public class Item
     {
-        public Item(string name, decimal price, string message)
+        public Item(string name, decimal price)
         {
             Name = name;
             Price = price;
-            Message = message;
-
         }
 
         // Properties

@@ -4,10 +4,13 @@ using System.Text;
 
 namespace Capstone.Models
 {
-    class Chip : Item
+    public class Chip : Item
     {
         //Contructor
+        public Chip(string chipName, decimal chipPrice, string chipMessage) : base(chipName, chipPrice)
+        {
 
+        }
     }
 
     // Properties
