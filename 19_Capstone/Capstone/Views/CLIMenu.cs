@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Capstone.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -27,6 +28,7 @@ namespace Capstone.Views
         /// The Title of this menu
         /// </summary>
         public string Title { get; set; }
+        public VendingMachine Vendo_Matic_800 { get; set; }
 
         /// <summary>
         /// Constructor - pass in model data here
@@ -34,7 +36,11 @@ namespace Capstone.Views
         public CLIMenu()
         {
             this.menuOptions = new Dictionary<string, string>();
+            Vendo_Matic_800 = new VendingMachine();
+            Vendo_Matic_800.Load();
         }
+
+
 
         /// <summary>
         /// Run starts the menu loop

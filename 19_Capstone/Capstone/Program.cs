@@ -1,17 +1,18 @@
 ﻿using Capstone.Models;
 using Capstone.Views;
 using System;
+using System.Collections.Generic;
 
 namespace Capstone
 {
     class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             //Starts the Main Menu Running
 
-            //MainMenu mainMenu = new MainMenu();
-            //mainMenu.Run();
+            MainMenu mainMenu = new MainMenu();
+            mainMenu.Run();
 
 
             //Testing Candy Class Creation
@@ -34,16 +35,27 @@ namespace Capstone
             //Console.WriteLine(newDrink.Name);
             //Console.ReadLine();
 
-            // Testing Load Feature
+            // Testing Display Inventory List
 
-            VendingMacine loadTest = new VendingMacine();
-            loadTest.Load();
+            //VendingMachine newMachine = new VendingMachine();
+            //newMachine.Load();
+            ////for (int i = 0; i < newMachine.vendingStock.Count; i++)
+            //newMachine.DisplayInventory();
 
-            foreach (string item in loadTest.itemLines)
-            {
-                Console.WriteLine(item);
-            }
-            Console.ReadLine();
+            //Console.ReadLine();
+
+            // Testing Slot fucntionality
+
+            //VendingMachine newMachine = new VendingMachine();
+            //newMachine.Load();
+
+
+            //foreach (Slots slot in newMachine.slotList)
+            //{
+            //    Console.WriteLine($"{slot.Amount}{slot.SlotID} ");
+            //}
+
+            //Console.ReadLine();
 
         }
     }

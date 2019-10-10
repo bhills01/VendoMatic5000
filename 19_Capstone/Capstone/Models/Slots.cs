@@ -6,12 +6,23 @@ namespace Capstone.Models
 {
     public class Slots
     {
-        public Slots()
+        public Slots(string slotID)
         {
-
+            Amount = 5;
+            SlotID = slotID;
         }
 
-        public int Count { get; set; }
-        public Item ItemName { get; set; }
+        public int Amount { get; set; }
+        public string SlotID { get; private set; }
+
+
+
+
+
+
     }
+
+
+
+
 }

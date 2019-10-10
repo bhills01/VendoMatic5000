@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Capstone.Models;
 
 namespace Capstone.Views
 {
@@ -43,19 +44,7 @@ namespace Capstone.Views
                 Console.Clear();
                 Console.WriteLine(this.Title);
                 Console.WriteLine(new string('=', this.Title.Length));
-                Console.WriteLine("Slot | Item Name | Price | Quantity");
-                Console.WriteLine("Slot | Item Name | Price | Quantity");
-                Console.WriteLine("Slot | Item Name | Price | Quantity");
-                Console.WriteLine("Slot | Item Name | Price | Quantity");
-                Console.WriteLine("Slot | Item Name | Price | Quantity");
-                Console.WriteLine("Slot | Item Name | Price | Quantity");
-                Console.WriteLine("Slot | Item Name | Price | Quantity");
-                Console.WriteLine("Slot | Item Name | Price | Quantity");
-                Console.WriteLine("Slot | Item Name | Price | Quantity");
-                Console.WriteLine("Slot | Item Name | Price | Quantity");
-                Console.WriteLine("Slot | Item Name | Price | Quantity");
-                Console.WriteLine("Slot | Item Name | Price | Quantity");
-                Console.WriteLine("Slot | Item Name | Price | Quantity");
+                Vendo_Matic_800.DisplayInventory();
                 foreach (KeyValuePair<string, string> menuItem in menuOptions)
                 {
                     Console.WriteLine($"{menuItem.Key} - {menuItem.Value}");

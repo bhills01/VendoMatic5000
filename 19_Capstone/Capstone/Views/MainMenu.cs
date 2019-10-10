@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Capstone.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -19,6 +20,7 @@ namespace Capstone.Views
             this.menuOptions.Add("2", "Purchase");
             this.menuOptions.Add("E", "Exit");
         }
+
 
         /// <summary>
         /// The override of ExecuteSelection handles whatever selection was made by the user.
