@@ -23,21 +23,19 @@ namespace Capstone.Views
         /// This is where every sub-menu puts its options for display to the user.
         /// </summary>
         protected Dictionary<string, string> menuOptions;
-
+        public VendingMachine Vendo_Matic_800 { get; set; }
         /// <summary>
         /// The Title of this menu
         /// </summary>
         public string Title { get; set; }
-        public VendingMachine Vendo_Matic_800 { get; set; }
 
         /// <summary>
         /// Constructor - pass in model data here
         /// </summary>
-        public CLIMenu()
+        public CLIMenu(VendingMachine newVendingMachine)
         {
             this.menuOptions = new Dictionary<string, string>();
-            Vendo_Matic_800 = new VendingMachine();
-            Vendo_Matic_800.Load();
+            Vendo_Matic_800 = newVendingMachine;
         }
 
 
@@ -170,7 +168,7 @@ namespace Capstone.Views
         /// </summary>
         /// <param name="message">The string to prompt the user with</param>
         /// <returns>String entered by the user</returns>
-        protected string GetString(string message)
+        virtual protected string GetString(string message)
         {
             while (true)
             {

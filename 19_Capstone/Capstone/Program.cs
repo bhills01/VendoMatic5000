@@ -11,7 +11,10 @@ namespace Capstone
         {
             //Starts the Main Menu Running
 
-            MainMenu mainMenu = new MainMenu();
+            VendingMachine Vendo_Matic_800 = new VendingMachine();
+            Vendo_Matic_800.Load();
+
+            MainMenu mainMenu = new MainMenu(Vendo_Matic_800);
             mainMenu.Run();
 
 
@@ -54,6 +57,12 @@ namespace Capstone
             //{
             //    Console.WriteLine($"{slot.Amount}{slot.SlotID} ");
             //}
+
+            //Testing Dispense
+            //VendingMachine newVend = new VendingMachine();
+            //newVend.Load();
+
+            //newVend.Dispense("A1")
 
             //Console.ReadLine();
 

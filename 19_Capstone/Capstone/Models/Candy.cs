@@ -10,13 +10,14 @@ namespace Capstone.Models
         {
             CandyName = candyName;
             CandyPrice = candyPrice;//Test Price hard coded. Will replace with StreamReader eventually
-            Message = "Munch Munch, Yum!";
+            //Message = "Munch Munch, Yum!";
+            base.Message = "Munch Munch, Yum!";
         }
 
         // Properties
         public string CandyName { get; set; }
         public decimal CandyPrice { get; set; }
-        public string Message { get; private set; }
+        //public string Message { get; private set; }
         //Methods
 
 

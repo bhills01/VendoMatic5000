@@ -18,17 +18,23 @@ namespace Capstone.Models
 
         public void Deposit (decimal depositAmount)
         {
-
+            Balance += depositAmount;
         }
 
         public void Spend(decimal amountSpent)
         {
-
+            if (amountSpent > Balance)
+            {
+                Console.WriteLine("Insufficient funds available. Please feed more money into the machine!!");
+            }
+            Balance -= amountSpent;
         }
 
-        public string Dispense(string purchaseMessage)
+        public void Dispense(Slots slotID)
         {
-            return "";
+            slotID.Amount--;
+
+            Console.WriteLine($"{vendingStock[slotID.SlotID].Message}");
         }
         public List<Slots> slotList = new List<Slots>();
         public Dictionary<string, Item> vendingStock = new Dictionary<string, Item>();
