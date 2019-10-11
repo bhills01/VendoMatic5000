@@ -15,12 +15,12 @@ namespace Capstone.Views
             Vendo_Matic_800 = newVendingMachine;
 
             this.Title = "*** Item Selection ***";
-            this.menuOptions.Add("1", "Purchase");
+            this.menuOptions.Add("1", "Purchase Menu");
             this.menuOptions.Add("M", "Return to Main Menu");                      
 
         }
 
-        public VendingMachine Vendo_Matic_800 { get; set; }
+        //public VendingMachine Vendo_Matic_800 { get; set; }
 
 
         /// <summary>
@@ -34,8 +34,12 @@ namespace Capstone.Views
             switch (choice)
             {
                 case "1":
-                    Console.WriteLine("**Will Take You to Purchase Menu**");
-                    Pause("Press any key");
+                    PurchaseMenu purchaseMenu = new PurchaseMenu(Vendo_Matic_800);
+                    purchaseMenu.Run();
+                    return true;
+                case "M":
+                    MainMenu mainMenu = new MainMenu(Vendo_Matic_800);
+                    mainMenu.Run();
                     return true;
             }
             return true;
@@ -57,23 +61,19 @@ namespace Capstone.Views
                 }
 
                 Console.WriteLine(new string('=', this.Title.Length));
-                Console.WriteLine($"Current Funds Available: {Vendo_Matic_800.Balance}");
+                Console.WriteLine($"Current Funds Available: {Vendo_Matic_800.Balance:C}");
                 Console.WriteLine(new string('=', this.Title.Length));
 
-                string choice = GetString("Selection:").ToUpper();
+                string choice = GetString("Selection:");
 
-                if (menuOptions.ContainsKey(choice))
+                if ((!menuOptions.ContainsKey(choice)) && (!Vendo_Matic_800.vendingStock.ContainsKey(choice)))
                 {
-                    if (choice == "M")
-                    {
-                        Console.WriteLine("**Will Take You to Main Menu*");
-                    }
-                    if (!ExecuteSelection(choice))
-                    {
-                        Console.WriteLine("Please Choose (1) or (M)"); ;
-                    }
+                    Pause("Invalid input,");
                 }
-                Console.ReadLine();
+                else if (!ExecuteSelection(choice))
+                {
+                    break;
+                }
             }
         }
 
@@ -82,7 +82,7 @@ namespace Capstone.Views
             while (true)
             {
                 Console.Write(message + " ");
-                string userInput = Console.ReadLine().Trim();
+                string userInput = Console.ReadLine().Trim().ToUpper();
                 if (!String.IsNullOrEmpty(userInput))
                 {
                     foreach (Slots slot in Vendo_Matic_800.slotList)
@@ -92,17 +92,37 @@ namespace Capstone.Views
                         string itemName = Vendo_Matic_800.vendingStock[itemID].Name;
                         decimal itemPrice = Vendo_Matic_800.vendingStock[itemID].Price;
 
-                        if (userInput == itemID)
+                        if (userInput == itemID && Vendo_Matic_800.Balance >= itemPrice)
                         {
+                            Console.Clear();
+                            Console.WriteLine(new string('=', this.Title.Length));
                             Vendo_Matic_800.Spend(itemPrice);
                             Vendo_Matic_800.Dispense(slot);
+                            Console.WriteLine(new string('=', this.Title.Length));
+                            if (itemAmountAvailable < 1)
+                            {
+                                Vendo_Matic_800.Deposit(itemPrice);
+                                Pause("Please make another selection,");
+                                break;
+                            }
+                            Pause("Thank you for your purchase,");
+                            PurchaseMenu purchaseMenu = new PurchaseMenu(Vendo_Matic_800);
+                            purchaseMenu.Run();
+                        }
+                        else if (userInput == itemID)
+                        {
+                            Console.Clear();
+                            Vendo_Matic_800.Spend(itemPrice);
+                            Pause("Tough Luck!,");
+                            PurchaseMenu purchaseMenu = new PurchaseMenu(Vendo_Matic_800);
+                            purchaseMenu.Run();
                         }
                     }
-
+                    return userInput;
                 }
                 else
                 {
-                    Console.WriteLine("!!! Invalid input. Please enter a valid decimal number.");
+                    return ("!!! Invalid input. Please enter a valid decimal number.");
                 }
             }
         }

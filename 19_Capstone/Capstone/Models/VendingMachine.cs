@@ -18,6 +18,7 @@ namespace Capstone.Models
 
         public void Deposit (decimal depositAmount)
         {
+
             Balance += depositAmount;
         }
 
@@ -26,15 +27,22 @@ namespace Capstone.Models
             if (amountSpent > Balance)
             {
                 Console.WriteLine("Insufficient funds available. Please feed more money into the machine!!");
+                return;
             }
             Balance -= amountSpent;
         }
 
         public void Dispense(Slots slotID)
         {
-            slotID.Amount--;
-
-            Console.WriteLine($"{vendingStock[slotID.SlotID].Message}");
+            if (slotID.Amount >= 1)
+            {
+                slotID.Amount--;
+                Console.WriteLine($"{vendingStock[slotID.SlotID].Message}");
+            }
+            else
+            {
+                Console.WriteLine($"SOLD OUT!!!");
+            }
         }
         public List<Slots> slotList = new List<Slots>();
         public Dictionary<string, Item> vendingStock = new Dictionary<string, Item>();
@@ -91,14 +99,44 @@ namespace Capstone.Models
                 int itemAmountAvailable = slot.Amount;
                 string itemName = vendingStock[itemID].Name;
                 decimal itemPrice = vendingStock[itemID].Price;
-
-                Console.WriteLine($"{itemID}|{itemName}|{itemPrice}|{itemAmountAvailable}");
+                string soldOut = "";
+                soldOut = (itemAmountAvailable >= 1) ? $"{itemAmountAvailable}" : "SOLD OUT!!!";
+                Console.WriteLine($"{itemID}|{itemName}|{itemPrice:C}|{soldOut}");
 
             }
 
 
         }
 
+        virtual public void EndVending()
+        {
+            Console.Clear();
+            Console.WriteLine($"Thank you for using the Vendo-Matic-800!!!");
+            Console.WriteLine();
+            int quarters = 0;
+            int dimes = 0;
+            int nickels = 0;
+            if (Balance >= .25m)
+            {
+                quarters = (int)(Balance * 100) / 25;
+                Balance = Balance % .25m;
+            }
+            if (Balance >= .10m)
+            {
+                dimes = (int)(Balance * 100) / 10;
+                Balance = Balance % .10m;
+            }
+            if (Balance >= .05m)
+            {
+                nickels = (int)(Balance * 100) / 5;
+            }
+            Console.WriteLine($"Please take your change: {quarters} Quarters, {dimes} Dimes, {nickels} Nickels.");
+            Balance -= Balance;
+            Console.WriteLine();
+            Console.WriteLine("Press [ENTER] to continue!");
+            Console.ReadLine();
+            Environment.Exit(0);
+        }
 
         private void WriteLog()
         {

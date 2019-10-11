@@ -20,9 +20,6 @@ namespace Capstone.Views
 
         }
 
-        public VendingMachine Vendo_Matic_800 { get; set; }
-
-
         /// <summary>
         /// The override of ExecuteSelection handles whatever selection was made by the user.
         /// This is where any business logic is executed.
@@ -34,8 +31,12 @@ namespace Capstone.Views
             switch (choice)
             {
                 case "1":
-                    Console.WriteLine("**Will Take You to Purchase Menu**");
-                    Pause("Press any key");
+                    PurchaseMenu newPurchaseMenu = new PurchaseMenu(Vendo_Matic_800);
+                    newPurchaseMenu.Run();
+                    return true;
+                case "M":
+                    MainMenu mainMenu = new MainMenu(Vendo_Matic_800);
+                    mainMenu.Run();
                     return true;
             }
             return true;
@@ -60,18 +61,19 @@ namespace Capstone.Views
 
                 if (menuOptions.ContainsKey(choice))
                 {
-                    if (choice == "M")
-                    {
-                        Console.WriteLine("**Will Take You to Main Menu*");
-                    }
                     if (!ExecuteSelection(choice))
                     {
-                        Console.WriteLine("Please Choose (1) or (M)"); ;
+                        //Console.WriteLine("Please choose (1) or (M)!");
+                        //Pause("Press [ENTER] to continue.");
+                        break;
                     }
                 }
-                Console.ReadLine();
+                else
+                {
+                    Pause("Invalid Selection,");
+                }
             }
         }
-
     }
 }
+

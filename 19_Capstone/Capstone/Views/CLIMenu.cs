@@ -60,16 +60,11 @@ namespace Capstone.Views
 
                 if (menuOptions.ContainsKey(choice))
                 {
-                    if (choice == "E")
-                    {
-                        break;
-                    }
                     if (!ExecuteSelection(choice))
                     {
                         break;
                     }
                 }
-
             }
         }
 
@@ -118,6 +113,24 @@ namespace Capstone.Views
                 Console.Write(message + " ");
                 string userInput = Console.ReadLine().Trim();
                 if (double.TryParse(userInput, out resultValue))
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("!!! Invalid input. Please enter a valid decimal number.");
+                }
+            }
+            return resultValue;
+        }
+        protected decimal GetDecimal(string message)
+        {
+            decimal resultValue = 0;
+            while (true)
+            {
+                Console.Write(message + " ");
+                string userInput = Console.ReadLine().Trim();
+                if (decimal.TryParse(userInput, out resultValue))
                 {
                     break;
                 }
@@ -180,7 +193,7 @@ namespace Capstone.Views
                 }
                 else
                 {
-                    Console.WriteLine("!!! Invalid input. Please enter a valid decimal number.");
+                    Pause("You did not enter a selection,");
                 }
             }
         }
