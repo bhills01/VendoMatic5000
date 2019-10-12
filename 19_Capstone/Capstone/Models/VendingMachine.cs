@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Capstone.Views;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -18,8 +19,17 @@ namespace Capstone.Models
 
         public void Deposit (decimal depositAmount)
         {
+            if ((depositAmount >= (decimal)0.00) && (depositAmount % (decimal)1 == 0))
+            {
+                Balance += depositAmount;
+                WriteLog("FEED MONEY", depositAmount);
+            }
+            else
+            {
+                Console.WriteLine("Please enter a positive whole dollar amount, Press Enter to Continue");
+                Console.ReadLine();
 
-            Balance += depositAmount;
+            }
         }
 
         public void Spend(decimal amountSpent)
@@ -36,8 +46,12 @@ namespace Capstone.Models
         {
             if (slotID.Amount >= 1)
             {
+                decimal startingBalance = (Balance + (vendingStock[slotID.SlotID].Price));
+                WriteLog(vendingStock[slotID.SlotID].Name, (startingBalance));
                 slotID.Amount--;
+                Console.WriteLine($"{vendingStock[slotID.SlotID].Name}{vendingStock[slotID.SlotID].Price}");
                 Console.WriteLine($"{vendingStock[slotID.SlotID].Message}");
+                Console.WriteLine($"Your new Balance is: {Balance}");
             }
             else
             {
@@ -101,7 +115,7 @@ namespace Capstone.Models
                 decimal itemPrice = vendingStock[itemID].Price;
                 string soldOut = "";
                 soldOut = (itemAmountAvailable >= 1) ? $"{itemAmountAvailable}" : "SOLD OUT!!!";
-                Console.WriteLine($"{itemID}|{itemName}|{itemPrice:C}|{soldOut}");
+                Console.WriteLine($"{itemID}|{itemName,-22}|{itemPrice:C}| QTY: {soldOut}");
 
             }
 
@@ -110,8 +124,9 @@ namespace Capstone.Models
 
         virtual public void EndVending()
         {
+            decimal beginningBalance = Balance;
             Console.Clear();
-            Console.WriteLine($"Thank you for using the Vendo-Matic-800!!!");
+            Console.WriteLine($"*****  Thank you for using the Vendo-Matic-800!!!  *****");
             Console.WriteLine();
             int quarters = 0;
             int dimes = 0;
@@ -130,17 +145,27 @@ namespace Capstone.Models
             {
                 nickels = (int)(Balance * 100) / 5;
             }
-            Console.WriteLine($"Please take your change: {quarters} Quarters, {dimes} Dimes, {nickels} Nickels.");
+            string changeString = $"Please take your change: {quarters} Quarters, {dimes} Dimes, {nickels} Nickels.";
+            Console.WriteLine(new string('=', changeString.Length));
+            Console.WriteLine(changeString);
+            Console.WriteLine(new string('=', changeString.Length));
             Balance -= Balance;
+            WriteLog("GIVE CHANGE", beginningBalance);
             Console.WriteLine();
             Console.WriteLine("Press [ENTER] to continue!");
             Console.ReadLine();
             Environment.Exit(0);
         }
 
-        private void WriteLog()
+        protected void WriteLog(string functionLogged, decimal transactionLogged)
         {
-
+            DateTime currentDateTime = new DateTime();
+            currentDateTime = DateTime.Now;
+            string destinationFilePath = @"..\..\..\..\Log.txt";
+            using (StreamWriter writeLog = new StreamWriter(destinationFilePath, true))
+            {
+                writeLog.WriteLine($"{currentDateTime,-23}||{"",-6}{functionLogged,-23}{"||",-8}{transactionLogged,-11:C}{"||",-12}{Balance:C}");
+            }
         }
     }
 }

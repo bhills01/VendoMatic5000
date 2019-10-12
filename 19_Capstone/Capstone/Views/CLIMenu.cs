@@ -1,6 +1,7 @@
 ﻿using Capstone.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace Capstone.Views
@@ -18,7 +19,7 @@ namespace Capstone.Views
         /*** 
          * Model Data that this menu system needs to operate on goes here.
          ***/
-        
+
         /// <summary>
         /// This is where every sub-menu puts its options for display to the user.
         /// </summary>
@@ -134,9 +135,14 @@ namespace Capstone.Views
                 {
                     break;
                 }
+                if (userInput == "")
+                {
+                    PurchaseMenu purchaseMenu = new PurchaseMenu(Vendo_Matic_800);
+                    purchaseMenu.Run();
+                }
                 else
                 {
-                    Console.WriteLine("!!! Invalid input. Please enter a valid decimal number.");
+                    Console.WriteLine("!!! Invalid input !!! ");
                 }
             }
             return resultValue;
@@ -208,6 +214,16 @@ namespace Capstone.Views
             Console.ReadLine();
         }
         #endregion
+        protected void WriteLog(string functionLogged, decimal transactionLogged)
+        {
+            DateTime currentDateTime = new DateTime();
+            currentDateTime = DateTime.Now;
+            string destinationFilePath = @"..\..\..\..\Log.txt";
+            using (StreamWriter writeLog = new StreamWriter(destinationFilePath, true))
+            {
+                writeLog.WriteLine($"{currentDateTime,-23}||{"" ,-6}{functionLogged ,-23}{"||",-8}{transactionLogged,-11:C}{"||",-12}{Vendo_Matic_800.Balance:C}");
+            }
 
+        }
     }
 }

@@ -14,7 +14,7 @@ namespace Capstone.Views
         {
             Vendo_Matic_800 = newVendingMachine;
 
-            this.Title = "*** Item Selection ***";
+            this.Title = "***********  Item Selection  ***********";
             this.menuOptions.Add("1", "Purchase Menu");
             this.menuOptions.Add("M", "Return to Main Menu");                      
 
@@ -57,7 +57,7 @@ namespace Capstone.Views
                 Console.WriteLine(new string('=', this.Title.Length));
                 foreach (KeyValuePair<string, string> menuItem in menuOptions)
                 {
-                    Console.WriteLine($"{menuItem.Key} - {menuItem.Value}");
+                    Console.WriteLine($"({menuItem.Key}) - {menuItem.Value}");
                 }
 
                 Console.WriteLine(new string('=', this.Title.Length));
@@ -68,7 +68,7 @@ namespace Capstone.Views
 
                 if ((!menuOptions.ContainsKey(choice)) && (!Vendo_Matic_800.vendingStock.ContainsKey(choice)))
                 {
-                    Pause("Invalid input,");
+                    Pause("Invalid Input,");
                 }
                 else if (!ExecuteSelection(choice))
                 {
@@ -91,6 +91,7 @@ namespace Capstone.Views
                         int itemAmountAvailable = slot.Amount;
                         string itemName = Vendo_Matic_800.vendingStock[itemID].Name;
                         decimal itemPrice = Vendo_Matic_800.vendingStock[itemID].Price;
+
 
                         if (userInput == itemID && Vendo_Matic_800.Balance >= itemPrice)
                         {

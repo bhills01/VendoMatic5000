@@ -14,7 +14,7 @@ namespace Capstone.Views
         {
             Vendo_Matic_800 = newVendingMachine;
 
-            this.Title = "*** Purchase Menu ***";
+            this.Title = "*********  Purchase Menu  *********";
             this.menuOptions.Add("1", "Feed Money");
             this.menuOptions.Add("2", "Select Product");
             this.menuOptions.Add("F", "Finish Transaction");
@@ -36,12 +36,20 @@ namespace Capstone.Views
             {
                 case "1":
                     Console.Clear();
-                    Console.WriteLine($"Your current balance is {Vendo_Matic_800.Balance:C}");
-                    decimal moneyFeed = GetDecimal("How much money would you like to deposit ?: ");
+                    string titleDisplay = $"        ************  Your current balance is {Vendo_Matic_800.Balance:C}  ************        ";
+                    Console.WriteLine();
+                    Console.WriteLine(titleDisplay);
+                    Console.WriteLine(new string('=', titleDisplay.Length));
+                    Console.WriteLine();
+                    decimal moneyFeed = GetDecimal("Enter whole dollar amount to deposit or press [ENTER] to return to menu: ");
                     Vendo_Matic_800.Deposit(moneyFeed);
 
                     Console.Clear();
-                    Console.WriteLine($"You have {Vendo_Matic_800.Balance:C} available!");
+                    string titleDisplayNewBalance = $"        ************  Your current balance is {Vendo_Matic_800.Balance:C}  ************        ";
+                    Console.WriteLine();
+                    Console.WriteLine(titleDisplayNewBalance);
+                    Console.WriteLine(new string('=', titleDisplayNewBalance.Length));
+                    Console.WriteLine();
                     Console.WriteLine("Press [ENTER] to return to the Purchase Menu");
                     Console.ReadLine();             
                     return true;
@@ -51,8 +59,9 @@ namespace Capstone.Views
                     itemSelection.Run();
                     return true;
                 case "F":
+                    decimal beginningBalance = Vendo_Matic_800.Balance;
                     Console.Clear();
-                    Console.WriteLine($"Thank you for using the Vendo-Matic-800!!!");
+                    Console.WriteLine($"*****  Thank you for using the Vendo-Matic-800!!!  *****");
                     Console.WriteLine();
                     int quarters = 0;
                     int dimes = 0;
@@ -71,12 +80,15 @@ namespace Capstone.Views
                     {
                         nickels = (int)(Vendo_Matic_800.Balance * 100) / 5;
                     }
-                    Console.WriteLine($"Please take your change: {quarters} Quarters, {dimes} Dimes, {nickels} Nickels.");
+                    string changeString = $"Please take your change: {quarters} Quarters, {dimes} Dimes, {nickels} Nickels.";
+                    Console.WriteLine(new string('=', changeString.Length));
+                    Console.WriteLine(changeString);
+                    Console.WriteLine(new string('=', changeString.Length));
                     Vendo_Matic_800.Balance = 0;
+                    WriteLog("GIVE CHANGE", beginningBalance);
                     Console.WriteLine();
                     Console.WriteLine("Press [ENTER] to continue!");
                     Console.ReadLine();
-
                     MainMenu mainMenu = new MainMenu(Vendo_Matic_800);
                     mainMenu.Run();
                     return true;

@@ -16,7 +16,7 @@ namespace Capstone.Views
         public MainMenu(VendingMachine newVendingMachine) : base(newVendingMachine)
         {
             Vendo_Matic_800 = newVendingMachine;
-            this.Title = "*** Main Menu ***";
+            this.Title = "***********  Main Menu  ***********";
             this.menuOptions.Add("1", "Display Vending Machine Items");
             this.menuOptions.Add("2", "Purchase");
             this.menuOptions.Add("E", "Exit");

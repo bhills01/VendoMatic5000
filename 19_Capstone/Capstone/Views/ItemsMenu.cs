@@ -14,7 +14,7 @@ namespace Capstone.Views
         {
             Vendo_Matic_800 = newVendingMachine;
 
-            this.Title = "*** Vending Items ***";
+            this.Title = "***********  Vending Items  ***********";
             this.menuOptions.Add("1", "Purchase");
             this.menuOptions.Add("M", "Return to Main Menu");                      
 
@@ -54,7 +54,7 @@ namespace Capstone.Views
                 Console.WriteLine(new string('=', this.Title.Length));
                 foreach (KeyValuePair<string, string> menuItem in menuOptions)
                 {
-                    Console.WriteLine($"{menuItem.Key} - {menuItem.Value}");
+                    Console.WriteLine($"({menuItem.Key}) - {menuItem.Value}");
                 }
 
                 string choice = GetString("Selection:").ToUpper();
@@ -70,7 +70,7 @@ namespace Capstone.Views
                 }
                 else
                 {
-                    Pause("Invalid Selection,");
+                    Pause("Select [1] or [M],");
                 }
             }
         }
