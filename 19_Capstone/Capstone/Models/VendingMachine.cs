@@ -31,12 +31,18 @@ namespace Capstone.Models
 
             }
         }
-
+        decimal totalSpent = 0;
         public void Spend(decimal amountSpent)
         {
+            totalSpent += amountSpent;
             if (amountSpent > Balance)
             {
-                Console.WriteLine("Insufficient funds available. Please feed more money into the machine!!");
+                string insufficientFundsWarning = "Insufficient funds available. Please feed more money into the machine!!";
+                Console.WriteLine(new string('=', insufficientFundsWarning.Length));
+                Console.WriteLine(insufficientFundsWarning);
+                Console.WriteLine(new string('=', insufficientFundsWarning.Length));
+                Console.WriteLine();
+
                 return;
             }
             Balance -= amountSpent;
@@ -165,6 +171,25 @@ namespace Capstone.Models
             using (StreamWriter writeLog = new StreamWriter(destinationFilePath, true))
             {
                 writeLog.WriteLine($"{currentDateTime,-23}||{"",-6}{functionLogged,-23}{"||",-8}{transactionLogged,-11:C}{"||",-12}{Balance:C}");
+            }
+        }
+
+        public void GenerateSalesReport()
+        {
+            string destinationFilePath = @"..\..\..\..\SalesReport.txt";
+
+            using (StreamWriter writeLog = new StreamWriter(destinationFilePath, false))
+            {
+                foreach (Slots slot in slotList)
+                {
+                    string itemID = slot.SlotID;
+                    string itemName = vendingStock[itemID].Name;
+                    int itemAmountSold = 5 - slot.Amount;
+                    writeLog.WriteLine($"{itemName}|{itemAmountSold}");
+                }
+                writeLog.WriteLine();
+                writeLog.WriteLine($"Total Sales: {totalSpent:C}");
+
             }
         }
     }

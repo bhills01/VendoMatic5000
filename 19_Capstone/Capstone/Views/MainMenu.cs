@@ -45,7 +45,8 @@ namespace Capstone.Views
                     Vendo_Matic_800.EndVending();
                     return false;
                 case "4":
-                    break;
+                    Vendo_Matic_800.GenerateSalesReport();
+                    return true;
             }
             return true;
         }
@@ -64,8 +65,15 @@ namespace Capstone.Views
                 }
 
                 string choice = GetString("Selection:").ToUpper();
-
-                if (menuOptions.ContainsKey(choice))
+                if (choice == "4")
+                {
+                    Pause("Sales report generated!");
+                    if (!ExecuteSelection(choice))
+                    {
+                        break;
+                    }
+                }
+                else if (menuOptions.ContainsKey(choice))
                 {
                     if (!ExecuteSelection(choice))
                     {
