@@ -44,6 +44,23 @@ namespace Capstone.Views
                     decimal moneyFeed = GetDecimal("Enter whole dollar amount to deposit or press [ENTER] to return to menu: ");
                     Vendo_Matic_800.Deposit(moneyFeed);
 
+                    if (moneyFeed > 10000000)
+                    {
+                        Console.Clear();
+                        string tooBigWarning = "!!!!  Deposit Amount Exceeds Inventory Value  !!!!";
+                        Console.WriteLine(new string('=', tooBigWarning.Length));
+                        Console.WriteLine(tooBigWarning);
+                        Console.WriteLine(new string('=', tooBigWarning.Length));
+                        Console.WriteLine();
+                        Console.WriteLine("Press [ENTER] to return to the menu");
+                        Console.ReadLine();
+                    }
+                    else if (moneyFeed <= 0)
+                    {
+                        Console.WriteLine("Please enter a positive whole dollar amount, Press Enter to Continue");
+                        Console.ReadLine();
+                    }
+
                     Console.Clear();
                     string titleDisplayNewBalance = $"        ************  Your current balance is {Vendo_Matic_800.Balance:C}  ************        ";
                     Console.WriteLine();
@@ -59,33 +76,17 @@ namespace Capstone.Views
                     itemSelection.Run();
                     return true;
                 case "F":
-                    decimal beginningBalance = Vendo_Matic_800.Balance;
                     Console.Clear();
                     Console.WriteLine($"*****  Thank you for using the Vendo-Matic-800!!!  *****");
                     Console.WriteLine();
-                    int quarters = 0;
-                    int dimes = 0;
-                    int nickels = 0;
-                    if (Vendo_Matic_800.Balance >= .25m)
-                    {
-                        quarters = (int)(Vendo_Matic_800.Balance * 100) / 25;
-                        Vendo_Matic_800.Balance = Vendo_Matic_800.Balance % .25m;
-                    }
-                    if (Vendo_Matic_800.Balance >= .10m)
-                    {
-                        dimes = (int)(Vendo_Matic_800.Balance * 100) / 10;
-                        Vendo_Matic_800.Balance = Vendo_Matic_800.Balance % .10m;
-                    }
-                    if (Vendo_Matic_800.Balance >= .05m)
-                    {
-                        nickels = (int)(Vendo_Matic_800.Balance * 100) / 5;
-                    }
-                    string changeString = $"Please take your change: {quarters} Quarters, {dimes} Dimes, {nickels} Nickels.";
+                    Vendo_Matic_800.quarters = 0;
+                    Vendo_Matic_800.dimes = 0;
+                    Vendo_Matic_800.nickels = 0;
+                    Vendo_Matic_800.EndVending();
+                    string changeString = $"Please take your change: {Vendo_Matic_800.quarters} Quarters, {Vendo_Matic_800.dimes} Dimes, {Vendo_Matic_800.nickels} Nickels.";
                     Console.WriteLine(new string('=', changeString.Length));
                     Console.WriteLine(changeString);
                     Console.WriteLine(new string('=', changeString.Length));
-                    Vendo_Matic_800.Balance = 0;
-                    WriteLog("GIVE CHANGE", beginningBalance);
                     Console.WriteLine();
                     Console.WriteLine("Press [ENTER] to continue!");
                     Console.ReadLine();

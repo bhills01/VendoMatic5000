@@ -68,32 +68,40 @@ namespace CapstoneTests
             Assert.AreEqual(27, depositTwentySeven.Balance);
 
         }
-        // TEST NEEDS FIXED
-        //[TestMethod]
-        //public void DepositTooBigTest()
-        //{
-        //    //Arrange
+        [TestMethod]
+        public void DepositTooBigTest()
+        {
+            //Arrange
 
-        //    //Act
-        //    VendingMachine depositTooBig = new VendingMachine();
-        //    depositTooBig.Deposit(100000000);
+            //Act
+            VendingMachine depositTooBig = new VendingMachine();
+            depositTooBig.Deposit(100000000);
 
-        //    //Assert
-        //    Assert.AreEqual(0, depositTooBig.Balance);
+            //Assert
+            Assert.AreEqual(0, depositTooBig.Balance);
+        }
+        [TestMethod]
+        public void DepositLessThanZeroTest()
+        {
+            //Arrange
 
-        //}
-        //[TestMethod]
-        //public void DepositLessThanZeroTest()
-        //{
-        //    //Arrange
+            //Act
+            VendingMachine depositLessThanZero = new VendingMachine();
+            depositLessThanZero.Deposit(-150);
+            //Assert
+            Assert.AreEqual(0, depositLessThanZero.Balance);
+        }
+        [TestMethod]
+        public void DepositZeroTest()
+        {
+            //Arrange
 
-        //    //Act
-        //    VendingMachine depositLessThanZero = new VendingMachine();
-        //    depositLessThanZero.Deposit(-150);
-        //    //Assert
-        //    Assert.AreEqual(0, depositLessThanZero.Balance);
-
-        //}
+            //Act
+            VendingMachine depositLessThanZero = new VendingMachine();
+            depositLessThanZero.Deposit(0);
+            //Assert
+            Assert.AreEqual(0, depositLessThanZero.Balance);
+        }
         [TestMethod]
         public void SpendFiveTest()
         {
@@ -280,7 +288,7 @@ namespace CapstoneTests
             Assert.AreEqual("Chew Chew, Yum!", testGum.Message);
         }
         [TestMethod]
-        public void GetChangeTest()
+        public void GetChangeQuartersTest()
         {
             //Arrange
             VendingMachine testVend = new VendingMachine();
@@ -289,7 +297,51 @@ namespace CapstoneTests
             testVend.EndVending();
 
             //Assert
-            Assert.AreEqual(0, testVend.Balance);
+            Assert.AreEqual(8, testVend.quarters);
+            Assert.AreEqual(0, testVend.dimes);
+            Assert.AreEqual(0, testVend.nickels);
+        }
+        [TestMethod]
+        public void GetChangeDimesTest()
+        {
+            //Arrange
+            VendingMachine testVend = new VendingMachine();
+            testVend.Balance = .20m;
+            //Act
+            testVend.EndVending();
+
+            //Assert
+            Assert.AreEqual(0, testVend.quarters);
+            Assert.AreEqual(2, testVend.dimes);
+            Assert.AreEqual(0, testVend.nickels);
+        }
+        [TestMethod]
+        public void GetChangeNickelTest()
+        {
+            //Arrange
+            VendingMachine testVend = new VendingMachine();
+            testVend.Balance = .05m;
+            //Act
+            testVend.EndVending();
+
+            //Assert
+            Assert.AreEqual(0, testVend.quarters);
+            Assert.AreEqual(0, testVend.dimes);
+            Assert.AreEqual(1, testVend.nickels);
+        }
+        [TestMethod]
+        public void GetChangeMultipleCoinsTest()
+        {
+            //Arrange
+            VendingMachine testVend = new VendingMachine();
+            testVend.Balance = 2.40m;
+            //Act
+            testVend.EndVending();
+
+            //Assert
+            Assert.AreEqual(9, testVend.quarters);
+            Assert.AreEqual(1, testVend.dimes);
+            Assert.AreEqual(1, testVend.nickels);
         }
     }
 }

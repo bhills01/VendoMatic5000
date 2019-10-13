@@ -17,30 +17,23 @@ namespace Capstone.Models
         public decimal Balance { get; set; }
 
 
-        public void Deposit (decimal depositAmount)
+        public bool Deposit (decimal depositAmount)
         {
             if (depositAmount > 10000000)
             {
-                Console.Clear();
-                string tooBigWarning = "!!!!  Deposit Amount Exceeds Inventory Value  !!!!";
-                Console.WriteLine(new string('=', tooBigWarning.Length));
-                Console.WriteLine(tooBigWarning);
-                Console.WriteLine(new string('=', tooBigWarning.Length));
-                Console.WriteLine();
-                Console.WriteLine("Press [ENTER] to return to the menu");
-                Console.ReadLine();
+                return false;
             }
             else if ((depositAmount >= (decimal)0.00) && (depositAmount % (decimal)1 == 0))
             {
                 Balance += depositAmount;
                 WriteLog("FEED MONEY", depositAmount);
+                return true;
             }
             else
             {
-                Console.WriteLine("Please enter a positive whole dollar amount, Press Enter to Continue");
-                Console.ReadLine();
-
+                return false;
             }
+
         }
         decimal totalSpent = 0;
         public void Spend(decimal amountSpent)
@@ -66,13 +59,10 @@ namespace Capstone.Models
                 decimal startingBalance = (Balance + (vendingStock[slotID.SlotID].Price));
                 WriteLog(vendingStock[slotID.SlotID].Name, (startingBalance));
                 slotID.Amount--;
-                Console.WriteLine($"{vendingStock[slotID.SlotID].Name}{vendingStock[slotID.SlotID].Price}");
-                Console.WriteLine($"{vendingStock[slotID.SlotID].Message}");
-                Console.WriteLine($"Your new Balance is: {Balance}");
             }
             else
             {
-                Console.WriteLine($"SOLD OUT!!!");
+                return;
             }
         }
         public List<Slots> slotList = new List<Slots>();
@@ -138,16 +128,12 @@ namespace Capstone.Models
 
 
         }
-
+        public int quarters = 0;
+        public int dimes = 0;
+        public int nickels = 0; 
         virtual public void EndVending()
         {
             decimal beginningBalance = Balance;
-            Console.Clear();
-            Console.WriteLine($"*****  Thank you for using the Vendo-Matic-800!!!  *****");
-            Console.WriteLine();
-            int quarters = 0;
-            int dimes = 0;
-            int nickels = 0;
             if (Balance >= .25m)
             {
                 quarters = (int)(Balance * 100) / 25;
@@ -162,16 +148,8 @@ namespace Capstone.Models
             {
                 nickels = (int)(Balance * 100) / 5;
             }
-            string changeString = $"Please take your change: {quarters} Quarters, {dimes} Dimes, {nickels} Nickels.";
-            Console.WriteLine(new string('=', changeString.Length));
-            Console.WriteLine(changeString);
-            Console.WriteLine(new string('=', changeString.Length));
             Balance -= Balance;
             WriteLog("GIVE CHANGE", beginningBalance);
-            Console.WriteLine();
-            Console.WriteLine("Press [ENTER] to continue!");
-            Console.ReadLine();
-            Environment.Exit(0);
         }
 
         protected void WriteLog(string functionLogged, decimal transactionLogged)

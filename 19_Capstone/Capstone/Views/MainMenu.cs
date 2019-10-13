@@ -42,7 +42,21 @@ namespace Capstone.Views
                     purchaseMenu.Run();
                     return true;
                 case "E":
+                    Console.Clear();
+                    Console.WriteLine($"*****  Thank you for using the Vendo-Matic-800!!!  *****");
+                    Console.WriteLine();
+                    Vendo_Matic_800.quarters = 0;
+                    Vendo_Matic_800.dimes = 0;
+                    Vendo_Matic_800.nickels = 0;
                     Vendo_Matic_800.EndVending();
+                    string changeString = $"Please take your change: {Vendo_Matic_800.quarters} Quarters, {Vendo_Matic_800.dimes} Dimes, {Vendo_Matic_800.nickels} Nickels.";
+                    Console.WriteLine(new string('=', changeString.Length));
+                    Console.WriteLine(changeString);
+                    Console.WriteLine(new string('=', changeString.Length));
+                    Console.WriteLine();
+                    Console.WriteLine("Press [ENTER] to continue!");
+                    Console.ReadLine();
+                    Environment.Exit(0);
                     return false;
                 case "4":
                     Vendo_Matic_800.GenerateSalesReport();

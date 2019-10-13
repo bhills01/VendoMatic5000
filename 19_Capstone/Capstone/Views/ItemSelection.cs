@@ -95,13 +95,27 @@ namespace Capstone.Views
 
                         if (userInput == itemID && Vendo_Matic_800.Balance >= itemPrice)
                         {
-                            Console.Clear();
-                            Console.WriteLine(new string('=', this.Title.Length));
-                            Vendo_Matic_800.Spend(itemPrice);
-                            Vendo_Matic_800.Dispense(slot);
-                            Console.WriteLine(new string('=', this.Title.Length));
+                            if (slot.Amount >= 1)
+                            {
+                                Console.Clear();
+                                string dispenseString = $"Dispensing: {Vendo_Matic_800.vendingStock[slot.SlotID].Name} | {Vendo_Matic_800.vendingStock[slot.SlotID].Price:C} has been deducted from your balance.";
+                                Console.WriteLine(new string('=', dispenseString.Length));
+                                Vendo_Matic_800.Spend(itemPrice);
+                                Vendo_Matic_800.Dispense(slot);
+                                Console.WriteLine(dispenseString);
+                                Console.WriteLine();
+                                Console.WriteLine($"{Vendo_Matic_800.vendingStock[slot.SlotID].Message}");
+                                Console.WriteLine();
+                                Console.WriteLine($"Your new Balance is: {Vendo_Matic_800.Balance:C}");
+                                Console.WriteLine(new string('=', dispenseString.Length));
+                            }
                             if (itemAmountAvailable < 1)
                             {
+                                Console.Clear();
+                                string soldOutString = $"!!!!!!!!!!!!!!!!!!  SOLD OUT  !!!!!!!!!!!!!!!!!!";
+                                Console.WriteLine(new string('=', soldOutString.Length));
+                                Console.WriteLine(soldOutString);
+                                Console.WriteLine(new string('=', soldOutString.Length));
                                 Vendo_Matic_800.Deposit(itemPrice);
                                 Pause("Please make another selection,");
                                 break;
