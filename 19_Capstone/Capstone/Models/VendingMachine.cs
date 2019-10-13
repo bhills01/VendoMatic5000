@@ -19,7 +19,18 @@ namespace Capstone.Models
 
         public void Deposit (decimal depositAmount)
         {
-            if ((depositAmount >= (decimal)0.00) && (depositAmount % (decimal)1 == 0))
+            if (depositAmount > 10000000)
+            {
+                Console.Clear();
+                string tooBigWarning = "!!!!  Deposit Amount Exceeds Inventory Value  !!!!";
+                Console.WriteLine(new string('=', tooBigWarning.Length));
+                Console.WriteLine(tooBigWarning);
+                Console.WriteLine(new string('=', tooBigWarning.Length));
+                Console.WriteLine();
+                Console.WriteLine("Press [ENTER] to return to the menu");
+                Console.ReadLine();
+            }
+            else if ((depositAmount >= (decimal)0.00) && (depositAmount % (decimal)1 == 0))
             {
                 Balance += depositAmount;
                 WriteLog("FEED MONEY", depositAmount);
