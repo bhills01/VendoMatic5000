@@ -42,7 +42,9 @@ namespace Capstone.Views
             return true;
         }
 
-
+        /// <summary>
+        /// Run starts the menu loop
+        /// </summary>
         public override void Run()
         {
             while (true)

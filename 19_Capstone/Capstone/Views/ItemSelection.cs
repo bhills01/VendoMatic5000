@@ -45,7 +45,9 @@ namespace Capstone.Views
             return true;
         }
 
-
+        /// <summary>
+        /// Run starts the menu loop
+        /// </summary>
         public override void Run()
         {
             while (true)
@@ -77,6 +79,11 @@ namespace Capstone.Views
             }
         }
 
+        /// <summary>
+        /// Accepts user intput, makes it readable regardless of case, then decides the next course of action based on the user's choice.
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
         protected override string GetString(string message)
         {
             while (true)

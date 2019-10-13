@@ -16,7 +16,13 @@ namespace Capstone.Models
         public int InventoryCount { get; set; }
         public decimal Balance { get; set; }
 
-
+        /// <summary>
+        /// When given a deposit amount, will determine if the number is small enough not to break the program.
+        /// Then determines if the number is a positive whole decimal.
+        /// Once determined, the Balance property is updated with the deposit amount.
+        /// </summary>
+        /// <param name="depositAmount"></param>
+        /// <returns></returns>
         public bool Deposit (decimal depositAmount)
         {
             if (depositAmount > 10000000)
@@ -35,7 +41,16 @@ namespace Capstone.Models
             }
 
         }
+
         decimal totalSpent = 0;
+
+        /// <summary>
+        /// When given a decimal, will determine if there is enough left in the Balance property to perform the action.
+        /// If true, the amountSpent decimal will be subracted from the Balance property.
+        /// If false, a warning will appear onscreen.
+        /// The amountApent will also be added to totalSpent for the purpose of writing the sales report.
+        /// </summary>
+        /// <param name="amountSpent"></param>
         public void Spend(decimal amountSpent)
         {
             totalSpent += amountSpent;
@@ -52,6 +67,11 @@ namespace Capstone.Models
             Balance -= amountSpent;
         }
 
+        /// <summary>
+        /// When given a slot ID, as long as the Slot.Amount is 1 or more, the Slot.Amount will decrement 1.
+        /// A log will also be written.
+        /// </summary>
+        /// <param name="slotID"></param>
         public void Dispense(Slots slotID)
         {
             if (slotID.Amount >= 1)
@@ -65,8 +85,14 @@ namespace Capstone.Models
                 return;
             }
         }
+
         public List<Slots> slotList = new List<Slots>();
         public Dictionary<string, Item> vendingStock = new Dictionary<string, Item>();
+
+        /// <summary>
+        /// The vendingmachine.csv is read line by line and applied to an array seperated by "|".
+        /// The resulting strings of the idexes in the array are applied to a corresponding dictionary and/or list.
+        /// </summary>
         public void Load()
         {
             string filePath = @"..\..\..\..\vendingmachine.csv";
@@ -112,6 +138,10 @@ namespace Capstone.Models
             }
         }
 
+
+        /// <summary>
+        /// Displays itemID, itemName, itemPrice, and itemAmountAvailable (unless it's sold out).
+        /// </summary>
         public void DisplayInventory()
         {
             foreach (Slots slot in slotList)
@@ -125,12 +155,16 @@ namespace Capstone.Models
                 Console.WriteLine($"{itemID}|{itemName,-22}|{itemPrice:C}| QTY: {soldOut}");
 
             }
-
-
         }
+
         public int quarters = 0;
         public int dimes = 0;
         public int nickels = 0; 
+
+        /// <summary>
+        /// Uses math to determine how many quarters, dimes, and nickels are returned to the user.
+        /// Zeros out balance.
+        /// </summary>
         virtual public void EndVending()
         {
             decimal beginningBalance = Balance;
@@ -152,6 +186,11 @@ namespace Capstone.Models
             WriteLog("GIVE CHANGE", beginningBalance);
         }
 
+        /// <summary>
+        /// Given string of function type (deposit, sale, end vending) and a decimal of the transaction writes a line to the Log.txt.
+        /// </summary>
+        /// <param name="functionLogged"></param>
+        /// <param name="transactionLogged"></param>
         protected void WriteLog(string functionLogged, decimal transactionLogged)
         {
             DateTime currentDateTime = new DateTime();
@@ -163,6 +202,10 @@ namespace Capstone.Models
             }
         }
 
+        /// <summary>
+        /// Writes itemID, itemName, and amount sold to SalesReport.txt.
+        /// As well as writes the totalSpent at the end of the report.
+        /// </summary>
         public void GenerateSalesReport()
         {
             string destinationFilePath = @"..\..\..\..\SalesReport.txt";
